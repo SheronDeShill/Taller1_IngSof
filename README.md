@@ -11,6 +11,7 @@ npm install --save-dev nodemon
 npm install cors
 
 # DEPENDENCIAS DE FRONTEND-CHAT
+npm install
 
 # DEPENDENCIAS DE CLIENTE_MOVIL
 
