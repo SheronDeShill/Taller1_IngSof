@@ -1,0 +1,76 @@
+.login-container, .register-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f0f2f5; /* Gris claro de WhatsApp */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* La tarjeta blanca del formulario */
+form {
+  background: white;
+  padding: 40px;
+  border-radius: 3px;
+  box-shadow: 0 17px 50px 0 rgba(11,20,26,.19), 0 12px 15px 0 rgba(11,20,26,.24);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+h2 {
+  color: #41525d;
+  margin-bottom: 25px;
+  font-weight: 300;
+}
+
+/* Estilo de los inputs */
+input {
+  width: 90%;
+  padding: 12px 15px;
+  margin: 10px 0;
+  border: 1px solid #e9edef;
+  border-radius: 8px;
+  background-color: #fff;
+  font-size: 15px;
+  outline: none;
+}
+
+input:focus {
+  border-color: #00a884; /* Verde al hacer click */
+}
+
+/* El botón verde característico */
+button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 20px;
+  background-color: #2d4857;
+  color: white;
+  border: none;
+  border-radius: 24px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background-color: #2d4857;
+  box-shadow: 0 1px 1px 0 rgba(11,20,26,.06), 0 2px 5px 0 rgba(11,20,26,.2);
+}
+
+/* Enlaces inferiores */
+p {
+  margin-top: 20px;
+  color: #667781;
+  font-size: 14px;
+}
+
+a {
+  color: #2d4857;
+  text-decoration: none;
+  font-weight: 500;
+}
