@@ -18,3 +18,13 @@ npm install cors
 INICIAR BACKEND-CHAT: npm run dev
 INICIAR FRONTEND-CHAT: ng serve
 INICIAR CLIENTE_MOVIL: flutter run
+
+# INCLUIR EN BACKEND-CHAT ARCHIVO: (.env)
+
+PORT=3000
+DB_HOST=localhost
+DB_USER=root
+DB_PASSWORD=root
+DB_NAME=taller1
+
+JWT_SECRET =clave_super_secreta
