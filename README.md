@@ -13,7 +13,6 @@ npm install cors
 # DEPENDENCIAS DE FRONTEND-CHAT
 npm install
 
-# DEPENDENCIAS DE CLIENTE_MOVIL
 
 # COMANDOS PARA INICIAR SISTEMA (LOS COMANDOS SE DEBEN HACER DENTRO DE CADA CARPETA [cd CarpetaDestino])
 INICIAR BACKEND-CHAT: npm run dev
@@ -27,3 +26,11 @@ DB_USER=root
 DB_PASSWORD=root
 DB_NAME=taller1
 JWT_SECRET =clave_super_secreta
+
+# INSTRUCCIONES PARA INICIAR CLIENTE_MOVIL (LOCAL)
+1.- conectar el computador con el celular a traves de un cable de datos
+2.- activar las opciones de desarrollador -> depuracion por USB en el celular a utilizar
+3.- permitir la transferencia de archivos en el celular
+4.- iniciar el codigo (flutter run) en la carpeta cliente_movil y esperar (aprox 10m la primera vez). al terminar la aplicacion se iniciara automaticamente en el celular y dejara una aplicacion para abrise en cualquier momento.
+
+NOTA: la base de datos solo funcionara mientras que el codigo este activo, al terminarse, la aplicacion no podra ejecutar más instrucciones, solo se podra acceder a las distintas interfaces que posee (modo offline).
