@@ -3,6 +3,8 @@ const bcrypt = require('bcryptjs');
 const { json } = require('express');
 const jwt = require('jsonwebtoken');
 
+const { findUserByEmail, createUser } = require('../models/auth.model');
+
 const register = async (req, res) => {
     try{
         const { nombre_usuario, email, contrasena } = req.body;
@@ -13,107 +15,53 @@ const register = async (req, res) => {
             });
         }
 
-        db.query('SELECT * FROM usuario WHERE email = ?' , [email], async(err, results) => {
-            if(err){
-                return res.status(500).json({
-                    message: 'Error en el servidor',
-                    error: err.message
-                });
-            }
-
-            if(results.length > 0){
-                return res.status(400).json({
-                    message: 'El correo ya esta registrado'
-                });
-            }
-
-            const hashedPassword = await bcrypt.hash(contrasena, 10);
-
-            db.query(
-                'INSERT INTO usuario (nombre_usuario, email, contrasena) VALUES (?, ?, ?)',[nombre_usuario, email, hashedPassword],
-                (err, result) => {
-                    if(err){
-                        return res.status(500).json({
-                            message: 'Error al registrar el usuario',
-                            error: err.message
-                        });
-                    }
-
-                    return res.status(201).json({
-                        message: 'usuario registrado correctamente',
-                        userId: result.insertId
-                    });
-                }
-            );
-        });
-    } catch (error){
-        return res.status(500).json({
-            message: 'Error interno',
-            error: error.message
-        });
-    }
-};
-
-const login = (req, res) => {
-    try{
-        const{ email, contrasena } =req.body;
-
-        if(!email || !contrasena){
-            return res.status(400).json({
-                message: 'Email y contrasena son obligatorios'
-            });
+        const existingUser = await findUserByEmail(email);
+        if (existingUser.length > 0){
+            return res.status(400).json ({ message: 'Usuario ya existente' });
         }
         
-        db.query('SELECT * FROM usuario WHERE email = ?' , [email] , async (err, results) => {
-            if(err){
-                return res.status(500).json({
-                    message: 'Error en el servidor',
-                    error: err.message
-                });
-            }
+        const hashedPassword = await bcrypt.hash(contrasena, 10);
 
-            if(results.length === 0){
-                return res.status(401).json({
-                    message: 'Credenciales incorrectas'
-                });
-            }
+        await createUser(nombre_usuario, email, hashedPassword);
 
-            const usuario = results[0];
+        return res.status(201).json({ message: 'Usuario registrado correctamente'});
 
-            const passwordMatch = await bcrypt.compare(contrasena, usuario.contrasena);
-
-            if(!passwordMatch){
-                return res.status(400).json({
-                    message: 'Credendciales incorrectas'
-                });
-            }
-
-            const token = jwt.sign(
-                {
-                    id: usuario.idusuario,
-                    email: usuario.email,
-                    nombre_usuario: usuario.nombre_usuario
-                },
-                process.env.JWT_SECRET,
-                { expiresIn: '2h' }
-            );
-
-            return res.status(200).json({
-                message: 'Login exitoso',
-                token,
-                User: {
-                    id: usuario.idusuario,
-                    nombre_usuario: usuario.nombre_usuario,
-                    email: usuario.email
-                }
-            });
-        });
-    } catch(error){
+        } catch (error) {
         return res.status(500).json({
             message: 'Error interno',
             error: error.message
         });
     }
+    }; 
+
+const login = async (req, res) => {
+    try{
+        const{ email, contrasena } = req.body;
+        
+        const results = await findUserByEmail(email);
+        if (results.length === 0){
+            return res.status(401).json({ message: 'Credenciales incorrectas'});
+        }
+
+        const user = results[0];
+
+        const match = await bcrypt.compare(contrasena, user.contrasena);
+
+        if(!match){
+            return res.status(401).json({ message: 'Credenciales incorrectas'});
+        }
+
+        const token = jwt.sign(
+         { id: user.idusuario, email: user.email },
+         process.env.JWT_SECRET,
+         { expiresIn: '2h' }
+       );
+
+       res.json({ message: 'Login exitoso', token });
+
+    } catch (error) {
+    res.status(500).json({ message: 'Error interno', error: error.message });
+  }
 };
 
 module.exports = { register, login };
