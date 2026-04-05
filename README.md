@@ -9,6 +9,7 @@ LENGUAJE FRONTEND-CHAT (angular): npm install -g @angular/cli
 npm install express mysql2 bcryptjs jsonwebtoken dotenv cors
 npm install --save-dev nodemon
 npm install cors
+npm install socket.io
 
 # DEPENDENCIAS DE FRONTEND-CHAT
 npm install
@@ -35,4 +36,4 @@ NOTA: LOS COMANDOS SE DEBEN HACER DENTRO DE CADA CARPETA (cd CarpetaDestino)
 3.- permitir la transferencia de archivos en el celular
 4.- iniciar el codigo (flutter run) en la carpeta cliente_movil y esperar (aprox 10m la primera vez). al terminar la aplicacion se iniciara automaticamente en el celular y dejara una aplicacion para abrise en cualquier momento.
 
-NOTA: la base de datos solo funcionara mientras que el codigo este activo, al terminarse, la aplicacion no podra ejecutar más instrucciones, solo se podra acceder a las distintas interfaces que posee (modo offline).
+NOTA: la base de datos solo va a funcionar mientras que el codigo este activo, al terminarse, la aplicacion no podra ejecutar más instrucciones, solo se podra acceder a las distintas interfaces que posee (modo offline).
