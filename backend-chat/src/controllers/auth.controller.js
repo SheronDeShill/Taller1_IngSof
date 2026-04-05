@@ -52,12 +52,18 @@ const login = async (req, res) => {
         }
 
         const token = jwt.sign(
-         { id: user.idusuario, email: user.email },
+         { id: user.idusuario, email: user.email, nombre_usuario: user.nombre_usuario },
          process.env.JWT_SECRET,
          { expiresIn: '2h' }
        );
 
-       res.json({ message: 'Login exitoso', token });
+       res.json({ message: 'Login exitoso', token,
+        user: {
+            id: user.idusuario,
+            nombre_usuario: user.nombre_usuario,
+            email: user.email
+        }
+        });
 
     } catch (error) {
     res.status(500).json({ message: 'Error interno', error: error.message });

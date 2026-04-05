@@ -12,7 +12,7 @@ const registerChatHandlers = (io, socket) =>{
                 return socket.emit('chat_error', { message: 'No perteneces a este grupo' });
             }
             socket.join(`grupo_${groupId}`);
-            socket.emit('Joined_group', {groupId});
+            socket.emit('joined_group', {groupId});
         } catch(error) {
             socket.emit('chat_error', { message: 'Error al unirse al grupo'});
         }
