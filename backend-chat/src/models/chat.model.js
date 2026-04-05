@@ -38,7 +38,7 @@ const saveMessage = (groupId, userId , contenido) =>{
         [groupId, userId , contenido],
         (err, results) =>{
             if(err) reject(err);
-            else resolve(results.length > 0);
+            else resolve(results);
         }
         );
     });
