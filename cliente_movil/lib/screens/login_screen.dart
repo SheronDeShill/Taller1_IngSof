@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../services/auth_service.dart';
+import 'chat_list_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -21,9 +22,15 @@ class _LoginScreenState extends State<LoginScreen> {
     );
 
     if (success) {
+      // Redirigir a la pantalla de chats
+      Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => ChatListScreen()),
+      );
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("¡Bienvenido al Chat!")),
       );
+
       // 
     } else {
       ScaffoldMessenger.of(context).showSnackBar(

@@ -2,8 +2,11 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class AuthService {
+
+  static String? userToken;
+
   // localhost es 10.0.2.2 en android
-  final String baseUrl = "http://10.189.66.124:3000/api/auth";
+  final String baseUrl = "http://192.168.1.81:3000/api/auth"; // CAMBIAR IP POR LA DEL COMPUTADOR EN USO
 
   Future<bool> register(String username, String email, String password) async {
     final response = await http.post(
@@ -19,6 +22,7 @@ class AuthService {
   }
 
   Future<bool> login(String email, String password) async {
+    try {
     final response = await http.post(
       Uri.parse('$baseUrl/login'),
       headers: {"Content-Type": "application/json"},
@@ -26,9 +30,20 @@ class AuthService {
     );
     
     if (response.statusCode == 200) {
-      // Aquí se guarda el ID del usuario que viene de del MySQL
-      return true;
+      var data = json.decode(response.body);
+      String token = data['token']; // El backend debe enviar el token
+
+      // Aquí se guarda (una variable estática por ahora)
+      AuthService.userToken = token;
+
+      return true; // éxito
+
+    } else {
+      return false; // credenciales incorrectas
     }
-    return false;
+  } catch (e) {
+    print("Error de conexión: $e");
+    return false; // error de red o servidor apagado
   }
+}
 }
