@@ -1,0 +1,23 @@
+<div class="chat-list-container">
+  <div class="header">
+    <div class="header-content">
+      <h3>Mis Grupos</h3>
+      <button class="add-group-btn" (click)="crearNuevoGrupo()" title="Nuevo Grupo">
+        <span class="material-symbols-outlined">group_add</span>
+      </button>
+    </div>
+  </div>
+  
+  <div class="search-bar">
+    <input type="text" placeholder="Buscar o empezar un nuevo chat">
+  </div>
+
+  <div class="scroll-area">
+    <div *ngFor="let grupo of grupos()" class="group-item" (click)="selectGroup(grupo)">
+      <div class="avatar">{{ grupo.nombre_grupo[0] }}</div>
+      <div class="info">
+        <span class="name">{{ grupo.nombre_grupo }}</span>
+      </div>
+    </div>
+  </div>
+</div>

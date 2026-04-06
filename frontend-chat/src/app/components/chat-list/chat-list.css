@@ -1,0 +1,90 @@
+.group-item {
+  display: flex;
+  padding: 12px 15px;
+  cursor: pointer;
+  border-bottom: 1px solid #f0f2f5;
+  align-items: center;
+}
+
+.group-item:hover {
+  background-color: #f5f6f6;
+}
+
+.avatar {
+  width: 45px;
+  height: 45px;
+  background-color: #00a884; /* Verde característico */
+  border-radius: 50%;
+  margin-right: 15px;
+  display: flex; /* Para centrar la letra */
+  align-items: center;
+  justify-content: center;
+  color: white; /* Letra blanca */
+  font-weight: bold;
+  text-transform: uppercase;
+  flex-shrink: 0; /* Evita que el círculo se aplaste */
+}
+
+.info .name {
+  font-weight: 500;
+  color: #111b21;
+  display: block;
+}
+
+.chat-list-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.header {
+  padding: 10px 16px;
+  background-color: #f0f2f5;
+  border-bottom: 1px solid #e9edef;
+}
+
+.search-bar {
+  padding: 8px 12px;
+  background-color: #fff;
+  border-bottom: 1px solid #e9edef;
+}
+
+.search-bar input {
+  width: 90%;
+  padding: 8px 15px;
+  border: none;
+  background-color: #f0f2f5;
+  border-radius: 8px;
+  outline: none;
+  font-size: 14px;
+}
+
+.scroll-area {
+  flex: 1;
+  overflow-y: auto; /* Para que puedas hacer scroll si hay muchos grupos */
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 5px;
+}
+
+.add-group-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #54656f;
+  display: flex;
+  align-items: center;
+  transition: color 0.2s;
+}
+
+.add-group-btn:hover {
+  color: #00a884; /* Verde WhatsApp */
+}
+
+.add-group-btn .material-symbols-outlined {
+  font-size: 24px;
+}

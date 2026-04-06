@@ -1,0 +1,37 @@
+.whatsapp-container {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  background-color: #f0f2f5;
+  overflow: hidden;
+  position: fixed; /* Asegura que cubra toda la pantalla */
+  top: 0;
+  left: 0;
+}
+
+.sidebar {
+  flex: 0 0 30%; /* Ocupa exactamente el 30% */
+  min-width: 300px;
+  max-width: 450px;
+  background-color: #ffffff;
+  border-right: 1px solid #e9edef;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  flex: 1; /* Ocupa todo el espacio restante */
+  background-color: #efeae2;
+  display: flex;
+  flex-direction: column;
+}
+
+.welcome {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-align: center;
+  color: #41525d;
+}

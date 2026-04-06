@@ -1,0 +1,14 @@
+<div class="whatsapp-container">
+  <div class="sidebar">
+    <app-chat-list (groupSelected)="onGroupSelected($event)"></app-chat-list>
+  </div>
+
+  <div class="main-content">
+    <app-chat-screen *ngIf="selectedGroupId" [groupId]="selectedGroupId"></app-chat-screen>
+    
+    <div *ngIf="!selectedGroupId" class="welcome">
+       <h2>Pagina web de chat</h2>
+       <p>Selecciona un grupo para empezar.</p>
+    </div>
+  </div>
+</div>

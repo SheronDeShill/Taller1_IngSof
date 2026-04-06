@@ -1,0 +1,20 @@
+<div class="chat-container">
+  <div class="messages-area">
+    <div *ngFor="let msg of mensajes()" 
+         [ngClass]="{'my-message': msg.id_usuario == usuarioId, 'other-message': msg.id_usuario != usuarioId}">
+      <div class="bubble">
+  <span class="sender" *ngIf="msg.id_usuario != usuarioId">{{ msg.nombre_usuario }}</span>
+  <p>{{ msg.contenido }}</p>
+  <span class="time">{{ msg.fecha_envio | date:'HH:mm' }}</span>
+</div>
+    </div>
+  </div>
+
+  <div class="input-area">
+  <input type="text" [(ngModel)]="nuevoMensaje" (keyup.enter)="enviar()" placeholder="Escribe un mensaje aquí">
+  
+  <button class="send-btn" (click)="enviar()">
+    <span class="material-symbols-outlined">send</span>
+  </button>
+</div>
+</div>
