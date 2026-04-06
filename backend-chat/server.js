@@ -7,31 +7,30 @@ require('dotenv').config();
 const app = express();
 const server = http.createServer(app);
 
+app.use(cors());
+app.use(express.json());
+
+/// VER LAS PETICIONES
+app.use((req, res, next) => {
+    console.log(`Petición recibida: ${req.method} ${req.url}`);
+    next();
+});
+////
+
 const authRoutes = require('./src/routes/auth.routes');
 const chatRoutes = require('./src/routes/chat.routes');
 const socketAuth = require('./src/middlewares/socketAuth');
 const registerChatHandlers = require('./src/socket/chat.socket');
 const { Socket } = require('dgram');
 
-app.use(cors());
-
-console.log('Inicio de server.js');
-
 require('./src/config/db');
+
+app.use('/api/auth', authRoutes);
+app.use('/api/chat', chatRoutes);
 
 app.get('/',(req , res) => {
     res.send('Servidor funcionando');
 });
-
-const PORT = process.env.PORT || 3000;
-
-server.listen(PORT, () =>{
-    console.log(`Servidor en http://localhost:${PORT}`);
-})
-
-app.use(express.json());
-app.use('/api/auth', authRoutes);
-app.use('/api/chat', chatRoutes)
 
 const io = new Server(server, {
     cors: {
@@ -47,4 +46,9 @@ io.on('connection', (socket) => {
   registerChatHandlers(io, socket);
 });
 
+const PORT = process.env.PORT || 3000;
+server.listen(PORT, () =>{
+    console.log(`Servidor en http://localhost:${PORT}`);
+})
 
+console.log('Inicio de server.js');

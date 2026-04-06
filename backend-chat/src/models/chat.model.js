@@ -4,10 +4,11 @@ const db = require('../config/db');
 const getUserGroups = (userId) => {
     return new Promise((resolve, reject) => {
     db.query(
-      `SELECT g.idgrupo, g.nombre_grupo, g.es_privado
-       FROM grupos g
-       INNER JOIN miembros_grupo mg ON g.idgrupo = mg.idgrupo
-       WHERE mg.idusuario = ?`,
+      // ARREGLO PARA GRUPOS PUBLICOS:
+      `SELECT DISTINCT g.idgrupo, g.nombre_grupo, g.es_privado
+      FROM grupos g
+      LEFT JOIN miembros_grupo mg ON g.idgrupo = mg.idgrupo
+      WHERE g.es_privado = 0 OR mg.idusuario = ?`,
        [userId], (err, results) => {
         if (err) reject(err);
         else resolve(results);
@@ -37,9 +38,15 @@ const saveMessage = (groupId, userId , contenido) =>{
         VALUES (?, ?, ?)`,
         [groupId, userId , contenido],
         (err, results) =>{
-            if(err) reject(err);
-            else resolve(results.length > 0);
-        }
+            if (err) {
+                    console.error("ERROR EN MYSQL:", err); // para ver el error
+                    reject(err);
+                } else {
+                    // Cambia 'results.length > 0' por 'results' o 'true'
+                    // Los INSERT no devuelven .length, por eso fallaba el resolve
+                    resolve(results); 
+                }
+            }
         );
     });
 };
